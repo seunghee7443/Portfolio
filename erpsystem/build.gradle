@@ -1,0 +1,88 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.9'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'war'
+	
+	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
+}
+
+group = 'com.gmail.seunghee7443'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// log4j2의 보안이슈로 인하여 기존 사용중인 버전 삭제
+	// exclude module를 이용한 의존성 삭제 (적용 범위 : jpa, tymeleaf, web, test / 'spring-boot-starter-logging') 
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' exclude module: 'spring-boot-starter-logging'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' exclude module: 'spring-boot-starter-logging'
+	implementation 'org.springframework.boot:spring-boot-starter-web' exclude module: 'spring-boot-starter-logging'
+	
+	// 기존 gradle에 있는 log4j2 version은 주석처리로 비활성화
+	// implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	
+	// Spring Sercuity 의존성 추가 및 exclude module를 이용한 의존성 삭제
+	implementation 'org.springframework.boot:spring-boot-starter-security' exclude module: 'spring-boot-starter-logging'
+	
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'mysql:mysql-connector-java'
+	annotationProcessor 'org.projectlombok:lombok'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' exclude module: 'spring-boot-starter-logging'
+	
+	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
+	
+	implementation 'com.querydsl:querydsl-jpa'
+	implementation 'com.querydsl:querydsl-apt'
+	
+	// log4j2 2.17.1 의존성 추가
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.1'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-jul', version: '2.17.1'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.17.1'
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.32'
+	implementation group: 'org.slf4j', name: 'jul-to-slf4j', version: '1.7.32'
+	
+	// thymeleaf에 Spring Sercuity 인증, 인가정보 등을 활용하기 위한 의존성 추가
+	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
+
+}
+
+test {
+	useJUnitPlatform()
+}
+
+// querydsl 추가 시작
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main.java.srcDir querydslDir
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
