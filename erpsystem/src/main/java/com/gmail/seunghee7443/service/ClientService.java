@@ -34,4 +34,13 @@ public interface ClientService {
 		
 		return dto;
 	}
+	
+	// 신규 Client 정보를 입력하기 위한 Method
+	public String clientRegister(ClientDTO clientDTO);
+	
+	// Client의 정보를 수정하기 위한 Method
+	public void clientModify(String code, ClientDTO clientDTO) throws Exception;
+	
+	// Client의 정보를 삭제하기 위한 Method
+	public void delete(String code);
 }

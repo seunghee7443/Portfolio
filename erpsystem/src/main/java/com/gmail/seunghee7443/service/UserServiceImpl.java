@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 
+	// User의 정보를 저장하기 위한 Method
 	@Override
 	public String userRegister(UserDTO userDTO) {
 		User entity = dtoToEntity(userDTO);
@@ -39,6 +40,7 @@ public class UserServiceImpl implements UserService {
 
 		if(uModify.isPresent()) {
 			User user = uModify.get();
+			
 			if (StringUtils.isBlank(userDTO.getPw())) user.setPw(userDTO.getPw());
 			if (StringUtils.isBlank(userDTO.getName())) user.setName(userDTO.getName());
 			if (StringUtils.isBlank(userDTO.getDep())) user.setDep(userDTO.getDep());

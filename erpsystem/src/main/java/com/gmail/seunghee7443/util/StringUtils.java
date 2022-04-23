@@ -1,7 +1,7 @@
 /* 
  * 정보 수정을 위한 필요 Class
  * 역할 : 정보를 수정할 경우 항목에 null or white space가 있을 경우 수정되지 않도록 함
- * 사용할 곳 : User Modify에 사용 
+ * 사용할 곳 : User, Client Modify에 사용 
  * 참고 자료 : https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html
  */
 
