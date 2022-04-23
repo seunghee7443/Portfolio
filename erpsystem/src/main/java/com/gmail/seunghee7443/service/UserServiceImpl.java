@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
 		return entity.getId();
 	}
 	
+	// User의 정보를 수정하기 위한 Method - 부분 수정
 	@Override
 	@Transactional		// DB에 작업완료가 commit or rollback 되도록 설정한 Annotation
 	public void userModfiy(String id, UserDTO userDTO) throws Exception {
@@ -52,6 +53,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 	
+	// User의 정보를 삭제하기 위한 Method
 	@Override
 	public void delete(String id) {
 		Optional<User> result = userRepository.findById(id);
