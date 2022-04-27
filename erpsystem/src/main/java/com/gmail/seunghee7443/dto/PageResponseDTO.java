@@ -39,6 +39,7 @@ public class PageResponseDTO<DTO, EN> {
 		end = totalPage > tempEnd ? tempEnd : totalPage;
 		next = totalPage > tempEnd;
 		
+		// Page 목록생성을 위한 Method
 		pageList = new ArrayList<>();
 		for(int i = start; i <= end; i = i + 1) {
 			pageList.add(i);
@@ -49,5 +50,9 @@ public class PageResponseDTO<DTO, EN> {
 	public PageResponseDTO(Page<EN> result, Function<EN, DTO> fn) {
 		// stream : 순회 / map : 변환(Function<EN, DTO>를 변환) / collect : Collectors를 생성해주는 Method
 		dtoList = result.stream().map(fn).collect(Collectors.toList());
+		
+		// 전체 Page 수를 가져오기
+		totalPage = result.getTotalPages();
+		makePageList(result.getPageable());
 	}
 }
