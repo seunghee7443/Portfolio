@@ -31,7 +31,7 @@ public class Client {
 	
 	@Column(name= " client_name", length = 30, nullable = false)
 	private String name;
-	@Column(name = "client_add", length = 150)
+	@Column(name = "client_addr", length = 150)
 	private String addr;
 	@Column(name = "client_manager", length = 30, nullable = false)
 	private String manager;
