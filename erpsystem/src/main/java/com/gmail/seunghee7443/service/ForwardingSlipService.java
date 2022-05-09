@@ -24,7 +24,7 @@ public interface ForwardingSlipService {
 				.fcontent(fSlipEntity.getFcontent())
 				.fname(fSlipEntity.getFname())
 				.fcount(fSlipEntity.getFcount())
-				.regDate(fSlipEntity.getRegDtae())
+				.regDate(fSlipEntity.getRegDate())
 				.modDate(fSlipEntity.getModDate()).build();
 		
 		return dto;

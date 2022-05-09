@@ -24,7 +24,7 @@ public interface WearingSlipService {
 				.wcontent(wSlipEntity.getWcontent())
 				.wname(wSlipEntity.getWname())
 				.wcount(wSlipEntity.getWcount())
-				.regDate(wSlipEntity.getRegDtae())
+				.regDate(wSlipEntity.getRegDate())
 				.modDate(wSlipEntity.getModDate()).build();
 		
 		return dto;
